@@ -27,7 +27,7 @@ type ObjectWithNameArray = Array<{ name: string }>;
 
 ## 기본 타입
 
-- Boolean,Number,String,Array,Tuple,Enum,Void,Null and Undefined,Object
+- Boolean,Number,String,Array,Tuple,Enum,Null and Undefined
 - Any
   - 알지 못하는 타입을 표현
   - 타입의 일부만 알고 전체는 알지 못할 때 유용
@@ -36,8 +36,17 @@ type ObjectWithNameArray = Array<{ name: string }>;
   notSure = 'maybe a string instead';
   notSure = false;
   ```
+- Unknown
+  - any와 비슷하게 모든 타입을 대입할 수 있지만, 그 후 어떠한 동작도 수행할 수 없음.
+- Void
+ - 반환값이 없는 경우 타입이 void로 추론
+ - 반환값을 무시
+- {}, Object
+  - null과 undefined를 제외한 모든 값
 - Never
   - 절대 발생할 수 없는 타입
+
+![Alt text](image.png)
 
 ### Type assertions
 
