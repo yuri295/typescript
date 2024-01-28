@@ -169,9 +169,9 @@ type Name = Cat['name'];
 
 - 객체 타입의 이름이 달라도 구조가 동일하면 같은 객체로 인식
 - 서로 대입하지 못하게 하기 위해 서로를 구분하기 위한 속성 추가
-- \_\_type과 같은 속성을 브랜드(brand)속성이라고 부르며, 이를 사용하는 것을 브랜딩(branding)한다고 표현
+- __type과 같은 속성을 브랜드(brand)속성이라고 부르며, 이를 사용하는 것을 브랜딩(branding)한다고 표현
 
-```
+```ts
 interface Money {
   __type: 'money';
   amount: number;
