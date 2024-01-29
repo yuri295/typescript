@@ -169,7 +169,7 @@ type Name = Cat['name'];
 
 - 객체 타입의 이름이 달라도 구조가 동일하면 같은 객체로 인식
 - 서로 대입하지 못하게 하기 위해 서로를 구분하기 위한 속성 추가
-- __type과 같은 속성을 브랜드(brand)속성이라고 부르며, 이를 사용하는 것을 브랜딩(branding)한다고 표현
+- \_\_type과 같은 속성을 브랜드(brand)속성이라고 부르며, 이를 사용하는 것을 브랜딩(branding)한다고 표현
 
 ```ts
 interface Money {
@@ -187,4 +187,59 @@ interface Liter {
 const liter: Liter = { amount: 1, unit: 'liter', __type: 'liter' };
 const circle: Money = liter;
 // Type 'Liter' is not assignable to type 'Money'. Types of property '__type' are incompatible. Type '"liter"' is not assignable to type '"money"'.
+```
+
+## 제네릭
+
+- <>로 표현
+- 제네릭을 사용하여 타입 간 중복 제거
+
+```ts
+interface Person<N, A> {
+  type: 'human';
+  race: 'yellow';
+  name: N;
+  age: A;
+}
+interface Zero extends Person<'zero', 28> {}
+interface Nero extends Person<'nero', 32> {}
+```
+
+### 제네릭에 제약 걸기
+
+- extends로 표시
+
+```ts
+interface Example<A extends number, B = string> {
+  a: A;
+  b: B;
+}
+type Usecase1 = Example<string, boolean>;
+// Type 'string' does not satisfy the constraint 'number'.
+type Usecase2 = Example<1, boolean>;
+type Usecase3 = Example<number>;
+```
+
+## 컨디셔널 타입
+
+- 조건에 따라 다른 타입이 되는 것
+- 특정 타입 extends 다른 타입 ? 참일 때 타입 : 거짓일 때 타입
+
+### 컨디셔널 타입 분배 법칙
+
+- 타입이 제네릭이면서 유니언이면 분배 법칙이 실행됨.
+
+```ts
+type Start = string | number;
+type Result<Key> = Key extends string ? Key[] : never;
+let n: Result<Start> = ['hi'];
+// let n: string[]
+```
+
+- 배열로 제네릭을 감싸면 분배 법칙이 일어나지 않음.
+
+```ts
+type IsString<T> = [T] extends [string] ? true : false;
+type Result = IsString<'hi' | 3>;
+// type Result = false
 ```
