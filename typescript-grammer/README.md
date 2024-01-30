@@ -243,3 +243,30 @@ type IsString<T> = [T] extends [string] ? true : false;
 type Result = IsString<'hi' | 3>;
 // type Result = false
 ```
+
+## 오버로딩
+
+- 호출할 수 있는 함수의 타입을 미리 여러 개 타이핑해두는 기법
+
+```ts
+function add(x: number, y: number): number;
+function add(x: string, y: string): string;
+function add(x: any, y: any) {
+  return x + y;
+}
+
+add(1, 2); // 3
+add('1', '2'); // 12
+add(1, '2');
+add('1', 2);
+// No overload matches this call. Overload 1 of 2, '(x: number, y: number): number', gave the following error. Argument of type 'string' is not assignable to parameter of type 'number'. Overload 2 of 2, '(x: string, y: string): string', gave the following error. Argument of type 'number' is not assignable to parameter of type 'string'.
+```
+
+## 콜백 함수의 매개변수 생략
+
+```ts
+function example(callback: (error: Error, result: string) => void) {}
+example((e, r) => {}); //인수로 제공하는 함수의 매개변수에는 타입을 표기하지 않아도 됨.
+example(() => {}); //매개변수를 사용하지 않아도 됨.
+example(() => true); //반환값이 void일 때는 어떠한 반환값이 와도 상관없음.
+```
