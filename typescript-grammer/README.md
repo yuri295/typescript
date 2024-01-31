@@ -270,3 +270,46 @@ example((e, r) => {}); //인수로 제공하는 함수의 매개변수에는 타
 example(() => {}); //매개변수를 사용하지 않아도 됨.
 example(() => true); //반환값이 void일 때는 어떠한 반환값이 와도 상관없음.
 ```
+
+## 공변성과 반공변성
+
+- 공변성
+  - 반환값 타입에서 a->b일 때 a를 b에 대입 가능
+
+```ts
+function a(x: string): number {
+  return 0;
+}
+type B = (x: string) => number | string;
+let b: B = a;
+```
+
+- 반공변성
+  - 매개변수 타입에서 b->a일 때 a를 b에 대입 가능
+
+```ts
+function a(x: string | number): number {
+  return 0;
+}
+type B = (x: string) => number;
+let b: B = a;
+```
+
+## enum
+
+- 자바스크립트에 없지만 자바스크립트의 값으로 사용할 수 있는 타입
+- 여러 상수를 나열하는 목적
+- 값으로 사용하기보다 타입으로 더 많이 사용
+
+```ts
+var Level = {
+  0: 'NOVICE',
+  1: 'INTERMEDIATE',
+  2: 'ADVANCED',
+  3: 'MASTER',
+  NOVICE: 0,
+  INTERMEDIATE: 1,
+  ADVANCED: 2,
+  MASTER: 3,
+};
+```
